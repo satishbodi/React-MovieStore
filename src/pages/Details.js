@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import 'react-horizontal-scrolling-menu/dist/styles.css';
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 function Details() {
     const { id } = useParams();
@@ -41,13 +42,20 @@ function Details() {
         fetchSimilarInfo();
     }, []);
 
-    const onItemClick = (id) => {
+    const onSimilarItemClick = (id) => {
         navigate(`/details/${id}`)
+        window.location.reload();
+        console.log(id)
+    }
+
+    const onActorItemClick = (id) => {
+        navigate(`/actordetails/${id}`)
         console.log(id)
     }
 
     return (
         <div>
+            <Header />
             <img alt="Image poster" style={{ width: "100%", height: "400px", objectFit: "cover" }} src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`} />
             <div style={{ alignItems:"center", display:"flex", width: "fit-content", marginTop: "50px", marginLeft: "10%", marginRight: "10%" }}>
                 <img alt="Image poster" src={`https://image.tmdb.org/t/p/w300${data.poster_path}`} />
@@ -63,12 +71,10 @@ function Details() {
                 <ScrollMenu>
                     {credits.length &&
                         credits.map((dataObj, index) => (
-                            //if (dataObj.known_for_department=="Acting") {
-                            <div style={{ width: "200px", marginRight: "15px", backgroundColor: "#E8E8E8", paddingBottom: "5px", marginBottom: "30px" }} className={"row"} key={index}>
-                                <img alt="Image poster" src={`https://image.tmdb.org/t/p/w200${dataObj.profile_path}`} />
+                            <div onClick={() => onActorItemClick(dataObj.id)} style={{ width: "200px", marginRight: "15px", backgroundColor: "#E8E8E8", paddingBottom: "5px", marginBottom: "30px" }} className={"row"} key={index}>
+                                <img style={{ width: "200px", height: "300px" }} alt="Image poster" src={`https://image.tmdb.org/t/p/w200${dataObj.profile_path}`} />
                                 <p style={{ height: "30px", marginLeft: "10px", marginRight: "10px" }}> <b>{dataObj.name}</b> as <i>{dataObj.character}</i></p>
                         </div>
-                            //}
                         ))
                     }
                 </ScrollMenu>
@@ -79,8 +85,8 @@ function Details() {
                 <ScrollMenu>
                     {simiilar.length &&
                         simiilar.map((dataObj, index) => (
-                            <div onClick={() => onItemClick(dataObj.id)} style={{ width: "200px", marginRight: "15px", backgroundColor: "#E8E8E8", paddingBottom: "5px", marginBottom: "30px" }} className={"row"} key={index}>
-                                <img alt="Image poster" src={`https://image.tmdb.org/t/p/w200${dataObj.poster_path}`} />
+                            <div onClick={() => onSimilarItemClick(dataObj.id)} style={{ width: "200px", marginRight: "15px", backgroundColor: "#E8E8E8", paddingBottom: "5px", marginBottom: "30px" }} className={"row"} key={index}>
+                                <img style={{ width: "200px", height: "300px" }} alt="Image poster" src={`https://image.tmdb.org/t/p/w200${dataObj.poster_path}`} />
                                 <p style={{ height: "30px", marginLeft: "10px", marginRight: "10px" }}> <b>{dataObj.title}</b></p>
                             </div>
                         ))

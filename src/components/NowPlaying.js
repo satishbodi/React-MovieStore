@@ -35,7 +35,7 @@ function NowPlaying() {
                     {data.length &&
                             data.map((dataObj, index) => (
                                 <div onClick={() => onItemClick(dataObj.id)} style={{ width: "200px", marginRight:"15px",backgroundColor: "#E8E8E8", paddingBottom: "5px", marginBottom: "30px" }} className={"row"} key={index}>
-                                    <img alt="Image poster" src={`https://image.tmdb.org/t/p/w200${dataObj.poster_path}`} />
+                                    <img style={{ width: "200px", height: "300px" }} alt="Image poster" src={`https://image.tmdb.org/t/p/w200${dataObj.poster_path}`} />
                                     <p style={{ height: "30px", marginLeft: "10px", marginRight: "10px" }}> <b>{dataObj.title}</b></p>
                                 </div>
                             ))
